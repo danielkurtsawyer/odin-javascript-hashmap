@@ -1,0 +1,13 @@
+{
+  "name": "odin-javascript-hashmap",
+  "version": "1.0.0",
+  "description": "Github repository for the HashMap project from the Odin Project's JavaScript course.",
+  "main": "hashmap.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
