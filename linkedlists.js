@@ -193,7 +193,7 @@ class LinkedList {
 
   // returns the index of the key in the linked list, or null if not found
   getIndex(key){
-    // iterate throught the list and check each node's value attribute
+    // iterate throught the list and check each node's key attribute
     if(this._size === 0){
       // if there's nothing in the list, return null
       return null;
@@ -224,11 +224,39 @@ class LinkedList {
     // find the key's index
     const index = this.getIndex(key);
     // if an index is found, remove that index
-    if(index){
+    if(index != null){
       return this.removeAt(index);
       // else, return null
     } else {
       return null;
+    }
+  }
+
+  // overwrites the value for a given key
+  // returns true if successful, false otherwise
+  updateValue(key, value){
+    // iterate throught the list and check each node's key attribute
+    if(this._size === 0){
+      // if there's nothing in the list, return false
+      return false;
+    } else {
+      // create a temp variable to hold the pointer to the current node 
+      let tempNode = this._head;
+      let index = 0;
+      // iterate through the links until move past the tail
+      while(tempNode != null){
+        // if the key held by the node matches the method argument, return the index
+        if(key === tempNode.key){
+          tempNode.value = value;
+          return true;
+        }
+        // move to next node
+        tempNode = tempNode.nextNode;
+        // increment index
+        index++;
+      }
+      // if we make it here, the value was not found, so return null
+      return false;
     }
   }
 
@@ -240,11 +268,33 @@ class LinkedList {
     } else {
       let tempNode = this._head;
       while(tempNode != null){
-        string = string.concat(`( ${tempNode.value} ) -> `);
+        string = string.concat(`( ${tempNode.key} , ${tempNode.value} ) -> `);
         tempNode = tempNode.nextNode;
       }
       return string.concat('null');
     }
+  }
+
+  // returns the list of keys in an array
+  keys(){
+    const keys = [];
+    let tempNode = this._head;
+      while(tempNode != null){
+        keys.push(tempNode.key);
+        tempNode = tempNode.nextNode;
+      }
+    return keys;
+  }
+
+  // returns the list of values in an array
+  values(){
+    const values = [];
+    let tempNode = this._head;
+      while(tempNode != null){
+        values.push(tempNode.value);
+        tempNode = tempNode.nextNode;
+      }
+    return values;
   }
 
   // inserts a new node with the provided value at the given index
@@ -281,6 +331,8 @@ class LinkedList {
   }
 
   // removes the node at the given index
+  // returns the node if successful
+  // returns null if not
   removeAt(index){
     if(index < 0 || index > this._size - 1){
       console.log('not valid index');
